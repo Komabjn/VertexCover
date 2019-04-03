@@ -12,10 +12,9 @@ public interface Graph {
 
     /**
      *
-     * @param vertexNumber
      * @return
      */
-    public boolean checkIfVertexExists(int vertexNumber);
+    public int getNumberOfVertices();
 
     /**
      *

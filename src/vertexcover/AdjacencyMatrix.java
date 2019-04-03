@@ -1,7 +1,6 @@
 package vertexcover;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -22,8 +21,8 @@ public class AdjacencyMatrix implements Graph {
     }
 
     @Override
-    public boolean checkIfVertexExists(int vertexNumber) {
-        return (matrixSize > vertexNumber);
+    public int getNumberOfVertices() {
+        return matrixSize;
     }
 
     @Override
