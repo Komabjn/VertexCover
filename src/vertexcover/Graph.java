@@ -1,6 +1,5 @@
 package vertexcover;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -8,32 +7,48 @@ import java.util.List;
  * @author komabjn
  */
 public interface Graph {
-    
+
+    public static final int ADJACENCY_MATRIX = 1;
+
     /**
-     * 
+     *
      * @param vertexNumber
-     * @return 
+     * @return
      */
     public boolean checkIfVertexExists(int vertexNumber);
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getVertex();
-    
+
     /**
      *
      * @param vertexNumber
      * @return
      */
     public List<Integer> getAdjacentVertices(int vertexNumber);
-    
+
     /**
      *
      * @param filePath
-     * @throws IOException
+     * @return
      */
-    public boolean loadFromFile(String filePath) throws IOException;
-    
+    public int loadFromTextFile(String filePath);
+
+    /**
+     *
+     * @param filePath
+     * @return
+     */
+    public int writeToBinaryFile(String filePath);
+
+    /**
+     *
+     * @param filePath
+     * @return
+     */
+    public int loadFromBinaryFile(String filePath);
+
 }
