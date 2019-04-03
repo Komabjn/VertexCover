@@ -19,12 +19,6 @@ public interface Graph {
 
     /**
      *
-     * @return
-     */
-    public int getVertex();
-
-    /**
-     *
      * @param vertexNumber
      * @return
      */

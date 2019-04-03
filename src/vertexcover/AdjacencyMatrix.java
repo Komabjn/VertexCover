@@ -27,11 +27,6 @@ public class AdjacencyMatrix implements Graph {
     }
 
     @Override
-    public int getVertex() {
-        return (matrixSize - 1);
-    }
-
-    @Override
     public List<Integer> getAdjacentVertices(int vertexNumber) {
         List<Integer> adjacentVertices = new LinkedList<>();
         for (int i = 0; i < matrixSize; i++) {
@@ -72,6 +67,7 @@ public class AdjacencyMatrix implements Graph {
             FileChannel file = in.getChannel();
             ByteBuffer buf = file.map(FileChannel.MapMode.READ_WRITE, 0, 4 * matrixSize * matrixSize + 4);
             matrixSize = buf.getInt();
+            matrix = new int[matrixSize][matrixSize];
             for (int[] i : matrix) {
                 for (int j : i) {
                     j = buf.getInt();
