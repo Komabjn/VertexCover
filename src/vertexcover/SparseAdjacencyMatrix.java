@@ -5,6 +5,6 @@ package vertexcover;
  *
  * @author komabjn
  */
-public class SparseAdjancyMatrix {
+public class SparseAdjacencyMatrix {
     
 }
