@@ -5,6 +5,10 @@
  */
 package vertexcover;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author komabjn
@@ -15,7 +19,14 @@ public class VertexCover {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Graph g = new AdjacencyMatrix();
+        
+        try {
+            boolean result = g.loadFromFile(".\\res\\input.txt");
+        } catch (IOException ex) {
+            Logger.getLogger(VertexCover.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
 }
