@@ -64,7 +64,8 @@ public class AdjacencyMatrix implements Graph {
         try {
             in = new RandomAccessFile(fileName, "rw");
             FileChannel file = in.getChannel();
-            ByteBuffer buf = file.map(FileChannel.MapMode.READ_WRITE, 0, 4 * matrixSize * matrixSize + 4);
+            ByteBuffer buf = file.map(FileChannel.MapMode.READ_WRITE, 0, 4 * matrixSize * matrixSize + 8);
+            if(buf.getInt() != Graph.ADJACENCY_MATRIX) return -1;
             matrixSize = buf.getInt();
             matrix = new int[matrixSize][matrixSize];
             for (int[] i : matrix) {
@@ -93,7 +94,8 @@ public class AdjacencyMatrix implements Graph {
         try {
             out = new RandomAccessFile(fileName, "rw");
             FileChannel file = out.getChannel();
-            ByteBuffer buf = file.map(FileChannel.MapMode.READ_WRITE, 0, 4 * matrixSize * matrixSize + 4);
+            ByteBuffer buf = file.map(FileChannel.MapMode.READ_WRITE, 0, 4 * matrixSize * matrixSize + 8);
+            buf.putInt(Graph.ADJACENCY_MATRIX);
             buf.putInt(matrixSize);
             for (int[] i : matrix) {
                 for (int j : i) {
