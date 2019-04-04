@@ -1,6 +1,6 @@
 package vertexcover;
 
-import java.util.List;
+import java.util.LinkedList;
 
 /**
  *
@@ -21,7 +21,7 @@ public interface Graph {
      * @param vertexNumber
      * @return
      */
-    public List<Integer> getAdjacentVertices(int vertexNumber);
+    public LinkedList<Integer> getAdjacentVertices(int vertexNumber);
 
     /**
      *

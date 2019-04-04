@@ -7,7 +7,6 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
@@ -26,8 +25,8 @@ public class AdjacencyMatrix implements Graph {
     }
 
     @Override
-    public List<Integer> getAdjacentVertices(int vertexNumber) {
-        List<Integer> adjacentVertices = new LinkedList<>();
+    public LinkedList<Integer> getAdjacentVertices(int vertexNumber) {
+        LinkedList<Integer> adjacentVertices = new LinkedList<>();
         for (int i = 0; i < matrixSize; i++) {
             if (matrix[vertexNumber][i] > 0) {
                 adjacentVertices.add(i);
@@ -38,7 +37,7 @@ public class AdjacencyMatrix implements Graph {
 
     @Override
     public int loadFromTextFile(String filePath) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line = br.readLine();
             if (!line.startsWith("AM")) {
                 return -1;
@@ -52,6 +51,9 @@ public class AdjacencyMatrix implements Graph {
                     matrix[i][j] = Integer.parseInt(values[j]);
                 }
             }
+            for(int i = 0; i < matrixSize; i++){
+                matrix[i][i] = 0;
+            }
         } catch (IOException ex) {
             return -1;
         }
@@ -64,13 +66,16 @@ public class AdjacencyMatrix implements Graph {
         try {
             in = new RandomAccessFile(fileName, "rw");
             FileChannel file = in.getChannel();
-            ByteBuffer buf = file.map(FileChannel.MapMode.READ_WRITE, 0, 4 * matrixSize * matrixSize + 8);
-            if(buf.getInt() != Graph.ADJACENCY_MATRIX) return -1;
+            ByteBuffer buf = file.map(FileChannel.MapMode.READ_WRITE, 0, 8);
+            if (buf.getInt() != Graph.ADJACENCY_MATRIX) {
+                return -1;
+            }
             matrixSize = buf.getInt();
+            buf = file.map(FileChannel.MapMode.READ_WRITE, 8, 4 * matrixSize * matrixSize);
             matrix = new int[matrixSize][matrixSize];
-            for (int[] i : matrix) {
-                for (int j : i) {
-                    j = buf.getInt();
+            for (int i = 0; i < matrixSize; i++) {
+                for (int j = 0; j < matrixSize; j++) {
+                    matrix[i][j] = buf.getInt();
                 }
             }
             file.close();
